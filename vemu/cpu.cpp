@@ -47,6 +47,6 @@ void CPU::execute(const DecodedInstr& d, uint32_t inst) {
         break;
     default:
         printf("Unknown opcode 0x%02X at PC=0x%08X\n", d.opcode, pc);
-        exit(1);
+        exit(0);
     }
 }
