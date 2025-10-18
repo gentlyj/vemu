@@ -28,3 +28,8 @@ jobs:
         run: |
           cd build
           cmake --build . --config Release
+      
+      - name: Run app
+        run: |
+          cd build
+          ./vemu
