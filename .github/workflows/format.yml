@@ -1,0 +1,33 @@
+name: Format check
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths:
+      - '**/*.hpp'
+      - '**/*.cpp'
+      - '**/*.h'
+      - '**/*.c'
+      - '.clang-format'
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang-format
+        run: sudo apt update && sudo apt install -y clang-format
+      - name: Run clang-format check
+        run: |
+          set -e
+          git ls-files '*.cpp' '*.hpp' '*.c' '*.h' > /tmp/sources.txt
+          FAILED=0
+          while read -r f; do
+            clang-format -style=file "$f" | diff -u "$f" - || FAILED=1
+          done < /tmp/sources.txt
+          if [ $FAILED -ne 0 ]; then
+            echo "clang-format check failed. Run: clang-format -i <files>"
+            exit 1
+          fi
