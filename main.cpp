@@ -1,4 +1,4 @@
-#include "rvemu/cpu.hpp"
+#include "vemu/cpu.hpp"
 
 int main() {
     CPU cpu;
