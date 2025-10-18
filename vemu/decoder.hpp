@@ -1,15 +1,17 @@
 #pragma once
 #include "common.hpp"
 
-enum Opcode {
+enum Opcode
+{
     OP_OP_IMM = 0x13,
-    OP_OP     = 0x33,
+    OP_OP = 0x33,
     OP_BRANCH = 0x63,
-    OP_LOAD   = 0x03,
-    OP_STORE  = 0x23,
+    OP_LOAD = 0x03,
+    OP_STORE = 0x23,
 };
 
-struct DecodedInstr {
+struct DecodedInstr
+{
     uint32_t opcode;
     uint32_t rd;
     uint32_t rs1;

@@ -1,15 +1,19 @@
 #include "cpu.hpp"
 
-CPU::CPU() : pc(0) {
+CPU::CPU() : pc(0)
+{
     memset(regs, 0, sizeof(regs));
 }
 
-void CPU::load_program(const std::string& hex_path) {
+void CPU::load_program(const std::string &hex_path)
+{
     mem.load_hex(hex_path);
 }
 
-void CPU::run() {
-    for (int i = 0; i < 50; ++i) {
+void CPU::run()
+{
+    for (int i = 0; i < 50; ++i)
+    {
         uint32_t inst = mem.load_word(pc);
         DecodedInstr d = decode(inst);
         printf("PC=0x%08X INST=0x%08X\n", pc, inst);
@@ -18,10 +22,13 @@ void CPU::run() {
     }
 }
 
-void CPU::execute(const DecodedInstr& d, uint32_t inst) {
-    switch (d.opcode) {
+void CPU::execute(const DecodedInstr &d, uint32_t inst)
+{
+    switch (d.opcode)
+    {
     case OP_OP_IMM:
-        if (d.funct3 == 0x0) regs[d.rd] = regs[d.rs1] + d.imm;
+        if (d.funct3 == 0x0)
+            regs[d.rd] = regs[d.rs1] + d.imm;
         pc += 4;
         break;
     case OP_OP:
